@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { ExternalLink, GraduationCap, Linkedin, User } from "lucide-react";
+import Image from "next/image";
+import { ExternalLink, GraduationCap, Linkedin } from "lucide-react";
 import { useLanguage } from "@/components/LanguageProvider";
 import { siteConfig } from "@/lib/config";
 
@@ -15,13 +16,20 @@ export function AboutDeveloperSection() {
     >
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         <div className="cf-card p-6 sm:p-8">
-          <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex items-start gap-4">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-cf-primary-container border border-cf-border">
-                <User className="h-6 w-6 text-cf-primary" aria-hidden="true" />
+          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+            <div className="flex min-w-0 items-start gap-4">
+              <div className="h-28 w-20 shrink-0 overflow-hidden rounded-2xl border border-cf-border bg-cf-primary-container sm:h-32 sm:w-24">
+                <Image
+                  src="/developer/youssef-refaat.jpg"
+                  alt={t.developer.name}
+                  width={300}
+                  height={400}
+                  sizes="(min-width: 640px) 96px, 80px"
+                  className="h-full w-full object-cover"
+                />
               </div>
 
-              <div>
+              <div className="min-w-0">
                 <span className="inline-block rounded-md bg-cf-surface-low px-2.5 py-0.5 text-[11px] font-semibold text-cf-text-muted border border-cf-separator">
                   {t.developer.eyebrow}
                 </span>
@@ -34,7 +42,7 @@ export function AboutDeveloperSection() {
                   {t.developer.role}
                 </p>
 
-                <p className="mt-2 inline-flex items-center gap-2 text-sm text-cf-on-surface-variant">
+                <p className="mt-2 flex items-start gap-2 text-sm text-cf-on-surface-variant">
                   <GraduationCap
                     className="h-4 w-4 shrink-0 text-cf-text-muted"
                     aria-hidden="true"

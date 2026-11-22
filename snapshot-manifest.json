@@ -54,6 +54,10 @@
       "sha256": "26e18ebd009a35aa317a38fb18d9672103bc264ae50f8e21e0dc2090f4991263"
     },
     {
+      "path": "website/public/developer/youssef-refaat.jpg",
+      "sha256": "ed80e7e5833703592efe5430da127784edb0ba5486111ecbe459728327f9f764"
+    },
+    {
       "path": "website/public/favicon.svg",
       "sha256": "834db3951f3b07ae2dbcbcf886f51bb358ae07e5898c961cd31dc581126ec46b"
     },
@@ -131,7 +135,7 @@
     },
     {
       "path": "website/src/components/AboutDeveloperSection.tsx",
-      "sha256": "789415432bab633bb2bb64d09bbfae2308b9e75e9d802db480c4309c90238687"
+      "sha256": "e917e388c8b91aa5b988bb196299a999b8d4e06c64c3d5cc300fef8b75feda3e"
     },
     {
       "path": "website/src/components/AppPreviewSection.tsx",
