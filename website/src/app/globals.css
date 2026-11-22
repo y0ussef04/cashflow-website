@@ -1,0 +1,135 @@
+@import "tailwindcss";
+
+:root {
+  /* CashFlow Android Light Color Scheme (Color.kt & ExtendedColors.kt) */
+  --cf-primary: #175cd3;
+  --cf-primary-pressed: #1249a8;
+  --cf-primary-container: #f0f5ff;
+  --cf-on-primary-container: #0b2144;
+
+  /* Deep Midnight Sapphire Hero / Launch Canvas */
+  --cf-hero-bg: #0b2144;
+  --cf-hero-accent: #133266;
+  --cf-hero-border: #1e3a6d;
+
+  /* Brand Logo Tokens ("Flow Nexus") */
+  --cf-logo-royal: #1e6bff;
+  --cf-logo-fold: #0d47b8;
+  --cf-logo-sky: #38bdf8;
+
+  /* Neutral Light Surfaces (Cool Alabaster) */
+  --cf-bg: #f4f6f9;
+  --cf-surface: #ffffff;
+  --cf-surface-low: #f8fafc;
+  --cf-surface-container: #eaeff5;
+  --cf-surface-high: #e2e8f0;
+  --cf-on-surface: #0f172a;
+  --cf-on-surface-variant: #475467;
+  --cf-text-muted: #667085;
+  --cf-outline-variant: #e2e8f0;
+  --cf-separator: #eef2f6;
+
+  /* Semantic Colors */
+  --cf-profit-ink: #067647;
+  --cf-profit-bg: #ecfdf3;
+  --cf-profit-on: #054f31;
+
+  --cf-loss-ink: #b42318;
+  --cf-loss-bg: #fef3f2;
+  --cf-loss-on: #7f1d1d;
+
+  --cf-warning-ink: #b54708;
+  --cf-warning-bg: #fffaeb;
+  --cf-warning-on: #7a2e0e;
+
+  --cf-info-ink: #175cd3;
+  --cf-info-bg: #f0f5ff;
+  --cf-info-on: #0b2144;
+}
+
+@theme inline {
+  --color-cf-primary: var(--cf-primary);
+  --color-cf-primary-pressed: var(--cf-primary-pressed);
+  --color-cf-primary-container: var(--cf-primary-container);
+  --color-cf-on-primary-container: var(--cf-on-primary-container);
+
+  --color-cf-hero-bg: var(--cf-hero-bg);
+  --color-cf-hero-accent: var(--cf-hero-accent);
+  --color-cf-hero-border: var(--cf-hero-border);
+
+  --color-cf-bg: var(--cf-bg);
+  --color-cf-surface: var(--cf-surface);
+  --color-cf-surface-low: var(--cf-surface-low);
+  --color-cf-surface-container: var(--cf-surface-container);
+  --color-cf-on-surface: var(--cf-on-surface);
+  --color-cf-on-surface-variant: var(--cf-on-surface-variant);
+  --color-cf-text-muted: var(--cf-text-muted);
+  --color-cf-border: var(--cf-outline-variant);
+  --color-cf-separator: var(--cf-separator);
+
+  --color-cf-profit: var(--cf-profit-ink);
+  --color-cf-profit-bg: var(--cf-profit-bg);
+  --color-cf-warning: var(--cf-warning-ink);
+  --color-cf-warning-bg: var(--cf-warning-bg);
+  --color-cf-loss: var(--cf-loss-ink);
+  --color-cf-loss-bg: var(--cf-loss-bg);
+
+  --font-cairo: var(--font-cairo-local), "Cairo", system-ui, sans-serif;
+  --font-inter: var(--font-inter-local), "Inter", system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 76px;
+  background-color: var(--cf-bg);
+  color: var(--cf-on-surface);
+}
+
+body {
+  background-color: var(--cf-bg);
+  color: var(--cf-on-surface);
+  font-family: var(--font-cairo-local), "Cairo", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html[lang="en"] body {
+  font-family: var(--font-inter-local), "Inter", system-ui, sans-serif;
+}
+
+.font-tabular {
+  font-family: var(--font-inter-local), "Inter", system-ui, sans-serif;
+  font-feature-settings: "tnum" 1;
+  font-variant-numeric: tabular-nums;
+}
+
+/* CashFlow Outlined Card pattern (1px outlineVariant on crisp surface, no nested shadows) */
+.cf-card {
+  background-color: var(--cf-surface);
+  border: 1px solid var(--cf-outline-variant);
+  border-radius: 16px;
+}
+
+.cf-tonal-panel {
+  background-color: var(--cf-surface-low);
+  border: 1px solid var(--cf-separator);
+  border-radius: 12px;
+}
+
+/* Restrained M3 Motion (150ms–300ms, standard easing) */
+.cf-transition {
+  transition-property: color, background-color, border-color, transform, opacity;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .cf-transition,
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

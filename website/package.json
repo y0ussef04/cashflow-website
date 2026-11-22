@@ -1,0 +1,34 @@
+{
+  "name": "cashflow-website",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "wrangler pages dev out --ip 127.0.0.1 --port 8789",
+    "test": "node --test tests/*.test.mjs",
+    "test:browser": "playwright test",
+    "verify": "node scripts/verify-local-artifacts.mjs",
+    "prepare:github": "node scripts/prepare-github-snapshot.mjs",
+    "typecheck": "tsc --noEmit",
+    "cf:preview": "npm run build && wrangler pages dev out --ip 127.0.0.1 --port 8789"
+  },
+  "overrides": { "postcss": "8.5.33" },
+  "engines": { "node": ">=22" },
+  "dependencies": {
+    "lucide-react": "^0.511.0",
+    "next": "^15.3.2",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.65.1",
+    "@tailwindcss/postcss": "^4.1.7",
+    "@types/node": "^22.15.18",
+    "@types/react": "^19.1.4",
+    "@types/react-dom": "^19.1.4",
+    "tailwindcss": "^4.1.7",
+    "typescript": "^5.8.3",
+    "wrangler": "^4.16.1"
+  }
+}
