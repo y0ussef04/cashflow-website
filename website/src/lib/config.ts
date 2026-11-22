@@ -13,12 +13,12 @@ export const isApkAvailable = release.status === "PUBLISHED";
 const whatsappUrl = httpsUrl(cleanEnv(process.env.NEXT_PUBLIC_WHATSAPP_URL)) ?? "https://wa.me/201027780575";
 const supportMatch = /^https:\/\/wa\.me\/(\d{8,15})(?:\?|$)/.exec(whatsappUrl);
 if (!supportMatch) throw new Error("NEXT_PUBLIC_WHATSAPP_URL must be an official wa.me phone link.");
-const supportEmail = cleanEnv(process.env.NEXT_PUBLIC_SUPPORT_EMAIL);
+const supportEmail = cleanEnv(process.env.NEXT_PUBLIC_SUPPORT_EMAIL) ?? "youssef.mohammed3204@gmail.com";
 if (supportEmail && !/^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(supportEmail)) throw new Error("Invalid public support email.");
 
 export const siteConfig = {
-  // Cloudflare supplies CF_PAGES_URL at build time; custom domains are optional.
-  siteUrl: httpsUrl(cleanEnv(process.env.NEXT_PUBLIC_SITE_URL) ?? cleanEnv(process.env.CF_PAGES_URL)) ?? "http://localhost:3000",
+  // CF_PAGES_URL can identify a temporary deployment; canonical metadata uses the stable site.
+  siteUrl: httpsUrl(cleanEnv(process.env.NEXT_PUBLIC_SITE_URL)) ?? "https://cashflow-website-1ur.pages.dev",
   apk: {
     downloadUrl: isApkAvailable ? release.download_url : null,
     version: release.version_name,
@@ -30,7 +30,7 @@ export const siteConfig = {
     targetSdk: release.target_sdk,
     applicationId: release.application_id,
   },
-  legalEntity: cleanEnv(process.env.NEXT_PUBLIC_LEGAL_ENTITY),
+  legalEntity: cleanEnv(process.env.NEXT_PUBLIC_LEGAL_ENTITY) ?? "ENG.Youssef Refaat",
   catalog: {
     environment: "PRODUCTION" as const,
     projectRef: "oxttfkanbcfegyqisogp",

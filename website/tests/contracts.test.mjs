@@ -45,7 +45,7 @@ test('noncanonical payload, padded base64 and negative DER integers are rejected
   assert.throws(() => verifier.derToRawP1363(Uint8Array.from([48,6,2,1,128,2,1,1])));
 });
 test('pending manifest and obsolete APK environment variables never enable download', () => {
-  const config = loadTs('src/lib/config.ts', { NEXT_PUBLIC_APK_DOWNLOAD_URL: 'https://downloads.invalid/demo.apk', CF_PAGES_URL: 'https://local-fixture.pages.dev' });
+  const config = loadTs('src/lib/config.ts', { NEXT_PUBLIC_APK_DOWNLOAD_URL: 'https://downloads.invalid/demo.apk', NEXT_PUBLIC_SITE_URL: 'https://local-fixture.pages.dev' });
   assert.equal(config.isApkAvailable, false); assert.equal(config.siteConfig.apk.downloadUrl, null);
   assert.equal(config.siteConfig.siteUrl, 'https://local-fixture.pages.dev');
 });
@@ -70,11 +70,12 @@ test('published release needs complete matching Android identity and integrity m
   assert.equal(validateReleaseManifest(published).status, 'PUBLISHED');
   for (const changes of [{ download_url: 'javascript:alert(1)' }, { download_url: 'https://user:password@downloads.invalid/app.apk' }, { apk_sha256: '' }, { signer_cert_sha256: '' }, { size_bytes: 0 }, { version_code: 1 }, { released_at: null }]) assert.throws(() => validateReleaseManifest({ ...published, ...changes }));
 });
-test('public config validates contact/keyring and emits no custom-domain fallback', () => {
-  const f = fixture(); const config = loadTs('src/lib/config.ts', { NEXT_PUBLIC_CATALOG_SIGNING_PUBLIC_KEYS: `local-test=${f.publicKey}`, NEXT_PUBLIC_WHATSAPP_URL: 'https://wa.me/201000000001' });
+test('public config validates contact/keyring and uses stable canonical URLs', () => {
+  const f = fixture(); const config = loadTs('src/lib/config.ts', { NEXT_PUBLIC_CATALOG_SIGNING_PUBLIC_KEYS: `local-test=${f.publicKey}`, NEXT_PUBLIC_WHATSAPP_URL: 'https://wa.me/201000000001', CF_PAGES_URL: 'https://temporary.cashflow-website-1ur.pages.dev' });
   assert.equal(config.siteConfig.contact.supportPhoneHref, 'tel:+201000000001');
   assert.equal(config.siteConfig.contact.supportPhoneDisplay, '+201000000001');
-  assert.equal(config.siteConfig.siteUrl, 'http://localhost:3000');
+  assert.equal(config.siteConfig.siteUrl, 'https://cashflow-website-1ur.pages.dev');
+  assert.equal(loadTs('src/lib/config.ts', { NEXT_PUBLIC_SITE_URL: 'https://site.invalid/' }).siteConfig.siteUrl, 'https://site.invalid');
   assert.throws(() => loadTs('src/lib/config.ts', { NEXT_PUBLIC_CATALOG_SIGNING_PUBLIC_KEYS: 'private=not-a-public-key' }));
   assert.throws(() => loadTs('src/lib/config.ts', { NEXT_PUBLIC_SUPPORT_EMAIL: 'bad\naddress' }));
 });
