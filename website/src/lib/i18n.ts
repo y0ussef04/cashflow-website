@@ -85,29 +85,21 @@ export interface TranslationContent {
     screens: PreviewScreen[];
   };
   download: {
-    eyebrow: string;
     title: string;
     subtitle: string;
     trialNotice: string;
-    statusAvailable: string;
-    statusComingSoon: string;
     comingSoonHeading: string;
     comingSoonBody: string;
     downloadButton: string;
     comingSoonButton: string;
+    compatibilityValue: string;
     metaLabels: {
       version: string;
       size: string;
       updatedAt: string;
       compatibility: string;
-      packageId: string;
-      sha256: string;
     };
     metaPending: string;
-    installTitle: string;
-    installSteps: string[];
-    safetyTitle: string;
-    safetyNote: string;
   };
   faq: {
     eyebrow: string;
@@ -345,38 +337,24 @@ export const translations: Record<Language, TranslationContent> = {
       ],
     },
     download: {
-      eyebrow: "التحميل والتثبيت",
-      title: "احصل على تطبيق CashFlow لأجهزة أندرويد",
+      title: "ابدأ نظّم حسابات محلك مع CashFlow",
       subtitle:
-        "تنزيل مباشر لملف التثبيت الرسمي (APK) مع جميع معلومات الإصدار والتوافق وخطوات التثبيت الآمن.",
+        "تطبيق يساعدك على إدارة المحافظ الإلكترونية، تسجيل المعاملات اليومية، وحساب العمولات والأرباح بسهولة.",
       trialNotice:
         "تظهر أهلية التجربة ومدتها داخل التطبيق وفق الترخيص الحالي.",
-      statusAvailable: "الإصدار الرسمي متاح للتحميل",
-      statusComingSoon: "قريباً — جاري تجهيز ملف الإصدار الرسمي",
       comingSoonHeading: "ملف التحميل الرسمي قيد التجهيز",
       comingSoonBody:
-        "لم يتم رفع ملف APK الموقع للإصدار العام بعد. بمجرد تجهيز النسخة النهائية ورفعها على خادم التحميل الرسمي، سيظهر زر التحميل المباشر هنا مع حجم الملف وتاريخ التحديث.",
-      downloadButton: "تحميل ملف APK الآن",
+        "لم يتم رفع النسخة الرسمية بعد. بمجرد توفرها سيظهر زر التحميل المباشر هنا.",
+      downloadButton: "تحميل تطبيق CashFlow",
       comingSoonButton: "قريباً — التحميل غير متاح بعد",
+      compatibilityValue: "Android 8.0 فأحدث",
       metaLabels: {
         version: "الإصدار الحالي",
         size: "حجم الملف",
         updatedAt: "آخر تحديث",
-        compatibility: "توافق أندرويد",
-        packageId: "معرّف التطبيق",
-        sha256: "بصمة التحقق SHA-256",
+        compatibility: "التوافق",
       },
       metaPending: "يُحدَّد عند النشر",
-      installTitle: "خطوات تثبيت ملف APK على هاتف أندرويد",
-      installSteps: [
-        "اضغط على زر تحميل APK لتنزيل الملف الرسمي على هاتفك.",
-        "افتح الملف من قائمة التنزيلات (Downloads) أو من شريط الإشعارات.",
-        "إذا طلب النظام الإذن، فعّل خيار «السماح من هذا المصدر» للمتصفح أو مدير الملفات ثم اضغط «تثبيت».",
-        "افتح تطبيق CashFlow واتبع خطوات البدء السريع لإضافة محافظك ورصيد الخزنة.",
-      ],
-      safetyTitle: "ملاحظة حول التثبيت الآمن",
-      safetyNote:
-        "قم بتحميل CashFlow من هذا الموقع الرسمي فقط وتأكد من معرّف الحزمة com.cashflow.app. يُنصح بإيقاف إذن التثبيت من مصادر غير معروفة بعد إتمام التثبيت للحفاظ على أمان هاتفك.",
     },
     faq: {
       eyebrow: "الأسئلة الشائعة",
@@ -658,38 +636,24 @@ export const translations: Record<Language, TranslationContent> = {
       ],
     },
     download: {
-      eyebrow: "Download & Install",
-      title: "Get CashFlow for Android",
+      title: "Start organizing your shop's accounts with CashFlow",
       subtitle:
-        "Direct download of the official Android APK with verified version metadata, compatibility details, and safe installation instructions.",
+        "An Android app that helps you manage e-wallets, record daily transactions, and track commissions and profits with ease.",
       trialNotice:
         "Trial eligibility and duration are shown in the app under your current license.",
-      statusAvailable: "Official release available",
-      statusComingSoon: "Coming Soon — Official release APK preparing",
-      comingSoonHeading: "Official Release APK Is Being Prepared",
+      comingSoonHeading: "Official Release Is Being Prepared",
       comingSoonBody:
-        "The signed public release APK has not been published yet. Once uploaded to the official download host, the direct APK download button, file size, and release date will appear here automatically.",
-      downloadButton: "Download APK Now",
-      comingSoonButton: "Coming Soon — APK Not Yet Published",
+        "The official release has not been published yet. Once available, the direct download button will appear here automatically.",
+      downloadButton: "Download CashFlow App",
+      comingSoonButton: "Coming Soon — Download Not Available Yet",
+      compatibilityValue: "Android 8.0 or newer",
       metaLabels: {
         version: "Current Version",
         size: "File Size",
         updatedAt: "Last Updated",
-        compatibility: "Android Compatibility",
-        packageId: "Package ID",
-        sha256: "SHA-256 Checksum",
+        compatibility: "Compatibility",
       },
       metaPending: "Published upon release",
-      installTitle: "How to install the APK on Android",
-      installSteps: [
-        "Tap the Download APK button to save the official package to your Android device.",
-        "Open the downloaded file from your browser Downloads list or notification shade.",
-        "If prompted by Android, enable “Allow from this source” for your browser or file manager, then tap Install.",
-        "Open CashFlow and complete the quick setup to add your wallets and cashbox balance.",
-      ],
-      safetyTitle: "Safe installation note",
-      safetyNote:
-        "Only download CashFlow from this official website and verify the package ID com.cashflow.app. After installation completes, you can turn off “Allow from this source” in Android settings.",
     },
     faq: {
       eyebrow: "Frequently Asked Questions",

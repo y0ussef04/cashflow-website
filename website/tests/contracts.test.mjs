@@ -81,3 +81,44 @@ test('public config validates contact/keyring and uses stable canonical URLs', (
   assert.throws(() => loadTs('src/lib/config.ts', { NEXT_PUBLIC_CATALOG_SIGNING_PUBLIC_KEYS: 'private=not-a-public-key' }));
   assert.throws(() => loadTs('src/lib/config.ts', { NEXT_PUBLIC_SUPPORT_EMAIL: 'bad\naddress' }));
 });
+
+test('download section hides technical fingerprints from public UI while preserving manifest verification', async () => {
+  const { readFileSync, existsSync } = await import('node:fs');
+  const { resolve } = await import('node:path');
+  const manifest = JSON.parse(readFileSync(resolve(import.meta.dirname, '../public/release-manifest.json'), 'utf8'));
+  const { validateReleaseManifest } = loadTs('src/lib/releaseManifest.ts');
+  const verified = validateReleaseManifest(manifest);
+  assert.equal(verified.status, 'PUBLISHED');
+  assert.equal(verified.application_id, 'com.cashflow.app');
+  assert.equal(verified.version_code, 1);
+  assert.equal(verified.version_name, '1.0.0');
+  assert.match(verified.apk_sha256, /^[a-fA-F0-9]{64}$/);
+  assert.match(verified.signer_cert_sha256, /^[a-fA-F0-9]{64}$/);
+
+  const component = readFileSync(resolve(import.meta.dirname, '../src/components/DownloadSection.tsx'), 'utf8');
+  assert.ok(!component.includes('apk.sha256'));
+  assert.ok(!component.includes('apk.signerSha256'));
+  assert.ok(!component.includes('apk.applicationId'));
+
+  const outHtmlPath = resolve(import.meta.dirname, '../out/index.html');
+  if (existsSync(outHtmlPath)) {
+    const html = readFileSync(outHtmlPath, 'utf8');
+    const downloadStart = html.indexOf('id="download"');
+    assert.ok(downloadStart !== -1, 'Expected #download section in built HTML');
+    const sectionEnd = html.indexOf('</section>', downloadStart);
+    const downloadHtml = html.slice(downloadStart, sectionEnd);
+
+    assert.ok(downloadHtml.includes(`href="${manifest.download_url}"`));
+    assert.ok(downloadHtml.includes('ابدأ نظّم حسابات محلك مع CashFlow'));
+    assert.ok(downloadHtml.includes('تحميل تطبيق CashFlow'));
+    assert.ok(downloadHtml.includes(`v${manifest.version_name}`));
+    assert.ok(downloadHtml.includes(`${(manifest.size_bytes / 1048576).toFixed(1)} MB`));
+    assert.ok(downloadHtml.includes('Android 8.0 فأحدث'));
+    assert.ok(downloadHtml.includes('23 نوفمبر 2026'));
+
+    assert.ok(!downloadHtml.includes(manifest.apk_sha256));
+    assert.ok(!downloadHtml.includes(manifest.signer_cert_sha256));
+    assert.ok(!downloadHtml.includes(manifest.application_id));
+    assert.ok(!downloadHtml.includes('SHA-256'));
+  }
+});
