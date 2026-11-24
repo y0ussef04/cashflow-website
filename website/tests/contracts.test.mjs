@@ -44,9 +44,11 @@ test('noncanonical payload, padded base64 and negative DER integers are rejected
   assert.equal((await verifier.verifySignedCatalogEnvelope({ ...envelope, payload_b64u: Buffer.from(JSON.stringify(f.payload)).toString('base64url') }, f.options)).ok, false);
   assert.throws(() => verifier.derToRawP1363(Uint8Array.from([48,6,2,1,128,2,1,1])));
 });
-test('pending manifest and obsolete APK environment variables never enable download', () => {
+test('published manifest enables download and obsolete APK environment variables are ignored', () => {
   const config = loadTs('src/lib/config.ts', { NEXT_PUBLIC_APK_DOWNLOAD_URL: 'https://downloads.invalid/demo.apk', NEXT_PUBLIC_SITE_URL: 'https://local-fixture.pages.dev' });
-  assert.equal(config.isApkAvailable, false); assert.equal(config.siteConfig.apk.downloadUrl, null);
+  assert.equal(config.isApkAvailable, true);
+  assert.equal(config.siteConfig.apk.downloadUrl, config.release.download_url);
+  assert.notEqual(config.siteConfig.apk.downloadUrl, 'https://downloads.invalid/demo.apk');
   assert.equal(config.siteConfig.siteUrl, 'https://local-fixture.pages.dev');
 });
 test('a base64 alias of the same valid signature bytes is rejected', async () => {

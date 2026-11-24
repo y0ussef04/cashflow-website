@@ -275,7 +275,7 @@ export const translations: Record<Language, TranslationContent> = {
           title: "اضبط نظام العمولات حسب شغلك",
           description:
             "حدّد عمولة الإيداع والسحب لكل 500 ج.م أو أضف شرائح مخصصة للمبالغ المختلفة لتُحسب تلقائياً عند كل عملية.",
-          screenId: "dashboard",
+          screenId: "commissions",
         },
         {
           number: "03",
@@ -334,6 +334,13 @@ export const translations: Record<Language, TranslationContent> = {
           title: "المحافظ الإلكترونية والخزنة",
           caption: "إدارة جميع خطوط المحافظ ورصيد الخزنة النقدية وتسويات الأرصدة من مكان واحد.",
           tag: "المحافظ والخزنة",
+        },
+        {
+          id: "commissions",
+          src: "/screenshots/commissions.png",
+          title: "إعدادات نظام العمولات",
+          caption: "تحديد عمولة الإيداع والسحب لكل 500 ج.م وإضافة شرائح أسعار مخصصة للمبالغ المختلفة.",
+          tag: "العمولات",
         },
       ],
     },
@@ -581,7 +588,7 @@ export const translations: Record<Language, TranslationContent> = {
           title: "Configure Your Commission Rules",
           description:
             "Set your per-500 EGP rates or custom tiers for Cash In and Cash Out so commissions are calculated automatically on every entry.",
-          screenId: "dashboard",
+          screenId: "commissions",
         },
         {
           number: "03",
@@ -640,6 +647,13 @@ export const translations: Record<Language, TranslationContent> = {
           title: "Wallets & Physical Cashbox",
           caption: "Manage all e-wallet lines, physical cashbox balance, and balance adjustments in one view.",
           tag: "Wallets",
+        },
+        {
+          id: "commissions",
+          src: "/screenshots/commissions.png",
+          title: "Commission Rules & Tiers",
+          caption: "Configure per-500 EGP rates for Cash In and Cash Out and add custom amount tiers.",
+          tag: "Commissions",
         },
       ],
     },

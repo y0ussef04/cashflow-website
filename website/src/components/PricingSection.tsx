@@ -11,7 +11,7 @@ export function PricingSection() {
   const selling = catalog?.checkout_policy.sales_enabled === true && plans.length > 0;
   const messages = {
     loading: ar ? "جاري التحقق من الباقات الرسمية…" : "Checking official plans…",
-    unconfigured: ar ? "الباقات والأسعار غير متاحة حتى اعتماد الإطلاق." : "Plans and prices will be available once the release is approved.",
+    unconfigured: ar ? "الأسعار والباقات متاحة داخل تطبيق CashFlow." : "Plans and prices are available inside the CashFlow app.",
     unavailable: ar ? "تعذر تحميل الباقات. حاول مرة أخرى." : "Could not load plans. Please try again.",
     invalid: ar ? "تعذر التحقق من الباقات الرسمية. الأسعار غير متاحة حالياً." : "Official plans could not be verified. Prices are currently unavailable.",
     expired: ar ? "انتهت صلاحية الباقات المعروضة. حدّث للحصول على الأسعار الحالية." : "The published plans have expired. Refresh for current prices.",
@@ -22,6 +22,14 @@ export function PricingSection() {
       <h2 className="text-2xl font-bold text-cf-on-surface sm:text-3xl">{ar ? "الباقات والأسعار" : "Plans and pricing"}</h2>
       <p className="mt-3 text-sm text-cf-on-surface-variant">{ar ? "اختر الباقة داخل تطبيق CashFlow. يُثبّت السعر ووسيلة الدفع عند قبول طلب الاشتراك." : "Choose your plan in the CashFlow app. The price and payment destination are confirmed when your order is accepted."}</p>
       <p role="status" className="mt-6 rounded-xl border border-cf-border bg-cf-surface p-4 text-sm text-cf-on-surface-variant">{messages[status]}</p>
+      {status === "unconfigured" && (
+        <a
+          href="#download"
+          className="mt-4 inline-flex min-h-11 items-center rounded-xl bg-cf-primary px-5 py-2.5 text-sm font-semibold text-white"
+        >
+          {ar ? "حمّل التطبيق لعرض الباقات" : "Download the app to view plans"}
+        </a>
+      )}
       {["unavailable", "invalid", "expired"].includes(status) && <button type="button" onClick={retry} className="mt-3 min-h-11 rounded-xl bg-cf-primary px-5 py-2 text-sm font-semibold text-white">{ar ? "حاول مرة أخرى" : "Try again"}</button>}
       {status === "ready" && selling && <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {plans.map(p => {

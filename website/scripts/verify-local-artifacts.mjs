@@ -28,7 +28,7 @@ test('configured WhatsApp contact changes displayed and clickable support phone'
   const config = loadTs('src/lib/config.ts', { NEXT_PUBLIC_WHATSAPP_URL: 'https://wa.me/201000000001' });
   assert.equal(config.siteConfig.contact.supportPhoneDisplay, '+201000000001');
   assert.equal(config.siteConfig.contact.supportPhoneHref, 'tel:+201000000001');
-  assert.equal(config.isApkAvailable, false);
+  assert.equal(config.isApkAvailable, true);
 });
 test('legal statements match unencrypted Room and configurable order validity', () => {
   const privacy = readFileSync(resolve(web, 'src/app/privacy/page.tsx'), 'utf8');
