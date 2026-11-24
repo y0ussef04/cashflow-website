@@ -16,7 +16,7 @@ export interface ReleaseMetadata {
 export function validateReleaseManifest(value: unknown): ReleaseMetadata {
   const m = value as ReleaseMetadata;
   if (!m || !["PENDING_RELEASE", "PUBLISHED"].includes(m.status) || m.application_id !== "com.cashflow.app" ||
-      m.version_name !== "1.1.0" || m.version_code !== 2 || m.min_sdk !== 26 || m.target_sdk !== 35) throw new Error("Release manifest must match the current Android version and SDKs.");
+      m.version_name !== "1.0.0" || m.version_code !== 1 || m.min_sdk !== 26 || m.target_sdk !== 35) throw new Error("Release manifest must match the current Android version and SDKs.");
   if (m.status === "PUBLISHED") {
     const url = new URL(m.download_url);
     if (url.protocol !== "https:" || url.username || url.password || !url.pathname.endsWith(".apk") || /(?:PENDING|PLACEHOLDER|example\.(?:com|org)|localhost)/i.test(m.download_url) ||

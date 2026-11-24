@@ -4,7 +4,7 @@ import { fixture, loadTs, verifier } from './fixtures.mjs';
 
 test('actual Gateway golden catalog verifies with exact minor units', async () => {
   const vectors = loadTs('src/lib/config.ts', {}, { '../../public/release-manifest.json': {
-    status: 'PENDING_RELEASE', application_id: 'com.cashflow.app', version_name: '1.1.0', version_code: 2, min_sdk: 26, target_sdk: 35,
+    status: 'PENDING_RELEASE', application_id: 'com.cashflow.app', version_name: '1.0.0', version_code: 1, min_sdk: 26, target_sdk: 35,
   } });
   assert.equal(vectors.isApkAvailable, false);
   const { readFileSync, existsSync } = await import('node:fs');
@@ -65,10 +65,10 @@ test('a base64 alias of the same valid signature bytes is rejected', async () =>
 });
 test('published release needs complete matching Android identity and integrity metadata', () => {
   const { validateReleaseManifest } = loadTs('src/lib/releaseManifest.ts');
-  const published = { status: 'PUBLISHED', application_id: 'com.cashflow.app', version_name: '1.1.0', version_code: 2, min_sdk: 26, target_sdk: 35,
-    download_url: 'https://downloads.invalid/CashFlow-v1.1.0.apk', apk_sha256: 'a'.repeat(64), signer_cert_sha256: 'b'.repeat(64), size_bytes: 123456, released_at: '2026-11-21T12:00:00Z' };
+  const published = { status: 'PUBLISHED', application_id: 'com.cashflow.app', version_name: '1.0.0', version_code: 1, min_sdk: 26, target_sdk: 35,
+    download_url: 'https://downloads.invalid/CashFlow-v1.0.0.apk', apk_sha256: 'a'.repeat(64), signer_cert_sha256: 'b'.repeat(64), size_bytes: 123456, released_at: '2026-11-21T12:00:00Z' };
   assert.equal(validateReleaseManifest(published).status, 'PUBLISHED');
-  for (const changes of [{ download_url: 'javascript:alert(1)' }, { download_url: 'https://user:password@downloads.invalid/app.apk' }, { apk_sha256: '' }, { signer_cert_sha256: '' }, { size_bytes: 0 }, { version_code: 1 }, { released_at: null }]) assert.throws(() => validateReleaseManifest({ ...published, ...changes }));
+  for (const changes of [{ download_url: 'javascript:alert(1)' }, { download_url: 'https://user:password@downloads.invalid/app.apk' }, { apk_sha256: '' }, { signer_cert_sha256: '' }, { size_bytes: 0 }, { version_code: 2 }, { released_at: null }]) assert.throws(() => validateReleaseManifest({ ...published, ...changes }));
 });
 test('public config validates contact/keyring and uses stable canonical URLs', () => {
   const f = fixture(); const config = loadTs('src/lib/config.ts', { NEXT_PUBLIC_CATALOG_SIGNING_PUBLIC_KEYS: `local-test=${f.publicKey}`, NEXT_PUBLIC_WHATSAPP_URL: 'https://wa.me/201000000001', CF_PAGES_URL: 'https://temporary.cashflow-website-1ur.pages.dev' });
