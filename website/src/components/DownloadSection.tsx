@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Clock, Download, Info } from "lucide-react";
+import { CheckCircle2, Clock, Download, Info, ShieldCheck, Wrench } from "lucide-react";
 import { useLanguage } from "@/components/LanguageProvider";
 import { isApkAvailable, siteConfig } from "@/lib/config";
 
@@ -22,6 +22,10 @@ export function DownloadSection() {
   const { apk } = siteConfig;
 
   const formattedDate = formatReleaseDate(apk.updatedAt, lang);
+  const releaseNotes =
+    lang === "ar"
+      ? apk.releaseNotesAr || apk.releaseNotesEn
+      : apk.releaseNotesEn || apk.releaseNotesAr;
 
   const metadataItems = [
     {
@@ -38,6 +42,11 @@ export function DownloadSection() {
       label: t.download.metaLabels.compatibility,
       value: t.download.compatibilityValue,
       isLtr: false,
+    },
+    {
+      label: t.download.metaLabels.minSupported,
+      value: `v${apk.minSupportedVersionName}+`,
+      isLtr: true,
     },
     {
       label: t.download.metaLabels.updatedAt,
@@ -82,7 +91,7 @@ export function DownloadSection() {
             {isApkAvailable && apk.downloadUrl ? (
               <a
                 href={apk.downloadUrl}
-                download
+                download={`CashFlow-v${apk.version}.apk`}
                 className="cf-transition inline-flex min-h-[52px] w-full items-center justify-center gap-2.5 rounded-xl bg-[#2563EB] px-8 py-3.5 text-base font-bold text-white hover:bg-[#1D4ED8] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:w-auto"
               >
                 <Download className="h-5 w-5" aria-hidden="true" />
@@ -101,7 +110,7 @@ export function DownloadSection() {
             )}
           </div>
 
-          <dl className="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <dl className="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
             {metadataItems.map((item) => (
               <div
                 key={item.label}
@@ -112,14 +121,61 @@ export function DownloadSection() {
                 </dt>
                 <dd
                   dir={item.isLtr ? "ltr" : undefined}
-                  className={`mt-1 text-sm font-semibold text-white ${item.isLtr ? "font-tabular inline-block" : ""
-                    }`}
+                  className={`mt-1 text-sm font-semibold text-white ${
+                    item.isLtr ? "font-tabular inline-block" : ""
+                  }`}
                 >
                   {item.value}
                 </dd>
               </div>
             ))}
           </dl>
+
+          {releaseNotes && (
+            <div className="mt-6 rounded-xl border border-cf-hero-border bg-[#0B2144]/70 p-4 sm:p-5">
+              <div className="flex items-center gap-2 text-sm font-bold text-white">
+                <ShieldCheck className="h-4 w-4 text-[#34D399]" aria-hidden="true" />
+                <h3>{t.download.releaseNotesHeading}</h3>
+              </div>
+              <p className="mt-2 text-xs leading-relaxed text-[#CBD5E1] sm:text-sm">
+                {releaseNotes}
+              </p>
+            </div>
+          )}
+
+          <div className="mt-6 grid gap-4 md:grid-cols-2">
+            <div className="rounded-xl border border-cf-hero-border bg-[#0B2144]/60 p-4 sm:p-5">
+              <div className="flex items-center gap-2 text-sm font-bold text-white">
+                <CheckCircle2 className="h-4 w-4 shrink-0 text-[#60A5FA]" aria-hidden="true" />
+                <h3>{t.download.updateGuideHeading}</h3>
+              </div>
+              <ol className="mt-3 space-y-2 text-xs leading-relaxed text-[#CBD5E1]">
+                {t.download.updateGuideSteps.map((step, index) => (
+                  <li key={index} className="flex items-start gap-2">
+                    <span className="font-tabular mt-0.5 inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[#2563EB]/25 text-[10px] font-bold text-[#93C5FD]">
+                      {index + 1}
+                    </span>
+                    <span>{step}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+
+            <div className="rounded-xl border border-cf-hero-border bg-[#0B2144]/60 p-4 sm:p-5">
+              <div className="flex items-center gap-2 text-sm font-bold text-white">
+                <Wrench className="h-4 w-4 shrink-0 text-[#FBBF24]" aria-hidden="true" />
+                <h3>{t.download.troubleshootingHeading}</h3>
+              </div>
+              <ul className="mt-3 space-y-2 text-xs leading-relaxed text-[#CBD5E1]">
+                {t.download.troubleshootingItems.map((item, index) => (
+                  <li key={index} className="flex items-start gap-2">
+                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#FBBF24]" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </section>

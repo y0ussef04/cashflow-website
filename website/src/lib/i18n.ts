@@ -98,8 +98,14 @@ export interface TranslationContent {
       size: string;
       updatedAt: string;
       compatibility: string;
+      minSupported: string;
     };
     metaPending: string;
+    releaseNotesHeading: string;
+    updateGuideHeading: string;
+    updateGuideSteps: string[];
+    troubleshootingHeading: string;
+    troubleshootingItems: string[];
   };
   faq: {
     eyebrow: string;
@@ -353,8 +359,22 @@ export const translations: Record<Language, TranslationContent> = {
         size: "حجم الملف",
         updatedAt: "آخر تحديث",
         compatibility: "التوافق",
+        minSupported: "الحد الأدنى المدعوم للتحديث",
       },
       metaPending: "يُحدَّد عند النشر",
+      releaseNotesHeading: "أبرز التحسينات في هذا الإصدار",
+      updateGuideHeading: "طريقة التحديث للعملاء الحاليين (مع الحفاظ الكامل على بياناتك)",
+      updateGuideSteps: [
+        "نزّل ملف التحديث الرسمي من زر التحميل بالأعلى أو عبر «الإعدادات ← تحديثات التطبيق الرسمية» داخل CashFlow دون حذف النسخة الحالية.",
+        "افتح ملف الـ APK واضغط «تحديث» عند ظهور نافذة تأكيد التثبيت في أندرويد (يُطلب السماح بالتثبيت من هذا المصدر عند التحديث لأول مرة فقط).",
+        "تبقى جميع المحافظ، الخزنة، المعاملات، التقارير، والإعدادات محفوظة بالكامل على جهازك بدون أي مسح أو إعادة إعداد.",
+      ],
+      troubleshootingHeading: "إذا تعذر إتمام التحديث",
+      troubleshootingItems: [
+        "تأكد من توفر مساحة تخزين خالية كافية على الهاتف (50 ميجابايت على الأقل) ومن اتصال إنترنت مستقر أثناء التنزيل.",
+        "أعد تنزيل الملف من هذه الصفحة الرسمية فقط إذا انقطع التحميل أو ظهر خطأ في الحزمة.",
+        "احتفظ بنسخة احتياطية محلية (.cashflowbak) من «الإعدادات ← النسخ الاحتياطي» قبل التواصل مع الدعم — لا تقم بإلغاء تثبيت التطبيق كتحديث اعتيادي.",
+      ],
     },
     faq: {
       eyebrow: "الأسئلة الشائعة",
@@ -415,7 +435,7 @@ export const translations: Record<Language, TranslationContent> = {
     },
     privacyModal: {
       title: "سياسة الخصوصية — CashFlow",
-      lastUpdated: "تعكس البنية الفعلية لتطبيق CashFlow v1.1.0",
+      lastUpdated: "تعكس البنية الفعلية لتطبيق CashFlow لنظام أندرويد",
       close: "إغلاق",
       sections: [
         {
@@ -652,8 +672,22 @@ export const translations: Record<Language, TranslationContent> = {
         size: "File Size",
         updatedAt: "Last Updated",
         compatibility: "Compatibility",
+        minSupported: "Min Supported Update",
       },
       metaPending: "Published upon release",
+      releaseNotesHeading: "What's New in This Release",
+      updateGuideHeading: "Updating an Existing Installation (Zero Data Loss)",
+      updateGuideSteps: [
+        "Download the official APK above or check Settings → Official App Updates inside CashFlow without uninstalling your existing app.",
+        "Open the APK and confirm Android's Update prompt (enable “Allow from this source” if prompted on first update).",
+        "All wallets, cashbox balances, transactions, settings, and license state remain completely intact on your device.",
+      ],
+      troubleshootingHeading: "If an Update Fails to Install",
+      troubleshootingItems: [
+        "Verify at least 50 MB of free device storage and a stable internet connection during download.",
+        "Re-download directly from this official page if the APK file was interrupted or corrupted.",
+        "Export a local backup (.cashflowbak) from Settings → Backup before contacting support — never uninstall CashFlow as a routine update step.",
+      ],
     },
     faq: {
       eyebrow: "Frequently Asked Questions",
@@ -714,7 +748,7 @@ export const translations: Record<Language, TranslationContent> = {
     },
     privacyModal: {
       title: "Privacy Policy — CashFlow",
-      lastUpdated: "Reflects the actual architecture of CashFlow v1.1.0",
+      lastUpdated: "Reflects the actual architecture of CashFlow for Android",
       close: "Close",
       sections: [
         {

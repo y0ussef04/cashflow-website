@@ -3,7 +3,11 @@
   "files": [
     {
       "path": ".gitignore",
-      "sha256": "429f3eb3138625331bbae05be770087cbecde38c74fdefa83db1228dabd9086e"
+      "sha256": "92dc667f001fe3e75a0ef690f4edd605a6c0be10477b8c46e26c3a2f759e77b1"
+    },
+    {
+      "path": "README.md",
+      "sha256": "7344e96ed3f60db917753d48322459f0d4474cd74c970f756a2c6891bfd22cb8"
     },
     {
       "path": "docs/release/cloudflare-github-deployment-guide.md",
@@ -20,6 +24,10 @@
     {
       "path": "website/.node-version",
       "sha256": "f14b4987904bcb5814e4459a057ed4d20f58a633152288a761214dcd28780b56"
+    },
+    {
+      "path": "website/README.md",
+      "sha256": "7ace96661083ed5256042d654267fe11c82647638a67812082b5f9b2e64c5ce8"
     },
     {
       "path": "website/next.config.ts",
@@ -42,12 +50,12 @@
       "sha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde"
     },
     {
-      "path": "website/public/developer/youssef-refaat.jpg",
-      "sha256": "ed80e7e5833703592efe5430da127784edb0ba5486111ecbe459728327f9f764"
+      "path": "website/public/_headers",
+      "sha256": "26e18ebd009a35aa317a38fb18d9672103bc264ae50f8e21e0dc2090f4991263"
     },
     {
-      "path": "website/public/downloads/CashFlow-v1.0.0.apk",
-      "sha256": "ec113e03c2c4d76710eb9c5818275bb5a1722489d74a29074988915759d55bbc"
+      "path": "website/public/developer/youssef-refaat.jpg",
+      "sha256": "ed80e7e5833703592efe5430da127784edb0ba5486111ecbe459728327f9f764"
     },
     {
       "path": "website/public/favicon.svg",
@@ -55,11 +63,7 @@
     },
     {
       "path": "website/public/release-manifest.json",
-      "sha256": "0b391c13bc1ed7254a323650d76d66ec20e348b397b7787c14f42e00c9cb848f"
-    },
-    {
-      "path": "website/public/screenshots/commissions.png",
-      "sha256": "397a6dba8401ca637979fe8b452bcb64eea866ddca1af94e065dfd77e5690c49"
+      "sha256": "3d5d0217d1bc4a70a29fd828d34e0aa24770ee5b1ca14d416e0228d9f3e05d21"
     },
     {
       "path": "website/public/screenshots/dashboard.png",
@@ -82,20 +86,12 @@
       "sha256": "eb07dec4c03f6c3d64ab04619fa9a3dd1d4039f9fe61b38a84f02a4089e4bfe4"
     },
     {
-      "path": "website/public/_headers",
-      "sha256": "26e18ebd009a35aa317a38fb18d9672103bc264ae50f8e21e0dc2090f4991263"
-    },
-    {
-      "path": "website/README.md",
-      "sha256": "7ace96661083ed5256042d654267fe11c82647638a67812082b5f9b2e64c5ce8"
-    },
-    {
       "path": "website/scripts/prepare-github-snapshot.mjs",
       "sha256": "05976e0e629e7a97a17cc6f8be0e5bf1fabc822771afe1968e592f05f543ff9f"
     },
     {
       "path": "website/scripts/verify-local-artifacts.mjs",
-      "sha256": "2ce51b62b30d0cd06d1d801374b07c00ce1e581fa516fb551d5f8842998e127f"
+      "sha256": "a55fca87d935917123cfe35a0dc55206cf0653a10129b2f5cfd76b680a7cc7b7"
     },
     {
       "path": "website/src/app/globals.css",
@@ -187,7 +183,7 @@
     },
     {
       "path": "website/src/components/PricingSection.tsx",
-      "sha256": "4c80275b4a133b315ac146dd9f41f2168887e9c927767b3fd6f1320de211763f"
+      "sha256": "8b9db6255802ca783eebfd3d5aab43ca2730589877f9be9e4201a2f0989c1489"
     },
     {
       "path": "website/src/components/PublicCatalogProvider.tsx",
@@ -211,11 +207,11 @@
     },
     {
       "path": "website/src/lib/i18n.ts",
-      "sha256": "4fc442ef25b792676e74b946af5e56e2b5714e1842143c811c057594113cd555"
+      "sha256": "58a58494d3400ad498612bc396be736e1a08d6d91ebea8a3b461d87eca68a62b"
     },
     {
       "path": "website/src/lib/releaseManifest.ts",
-      "sha256": "abc66847379e2e55fe7bb42f8e87569a2ff8fcc28f712e4894eb621fe783bf85"
+      "sha256": "b55e774fdf2643b34a538e225bf5891038235bcb436aa858096ec437d8727022"
     },
     {
       "path": "website/tests/browser/website.spec.ts",
@@ -223,11 +219,11 @@
     },
     {
       "path": "website/tests/catalog-golden-vectors.json",
-      "sha256": "b4c402f73010691689209a62e57422bc6aa907a840d74c127c832687fcb53a8f"
+      "sha256": "df7d25ffbc8ee24e5ce073bb300cd3175d71e00b4c7e693f3d61f81631397b7d"
     },
     {
       "path": "website/tests/contracts.test.mjs",
-      "sha256": "3a40d0df4b13e1f22a2e1bc126aef960fa28d62a73188fa7e5d7935764498907"
+      "sha256": "e881906e742ac5267d389ce7f85735561a7f66f8483da930e400d9300e2208d0"
     },
     {
       "path": "website/tests/fixtures.mjs",

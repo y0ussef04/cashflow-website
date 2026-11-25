@@ -65,12 +65,25 @@ test('a base64 alias of the same valid signature bytes is rejected', async () =>
   assert.equal((await verifier.verifySignedCatalogEnvelope(envelope, f.options)).ok, true);
   assert.equal((await verifier.verifySignedCatalogEnvelope({ ...envelope, signature_b64u: alias }, f.options)).ok, false);
 });
-test('published release needs complete matching Android identity and integrity metadata', () => {
-  const { validateReleaseManifest } = loadTs('src/lib/releaseManifest.ts');
-  const published = { status: 'PUBLISHED', application_id: 'com.cashflow.app', version_name: '1.0.0', version_code: 1, min_sdk: 26, target_sdk: 35,
-    download_url: 'https://downloads.invalid/CashFlow-v1.0.0.apk', apk_sha256: 'a'.repeat(64), signer_cert_sha256: 'b'.repeat(64), size_bytes: 123456, released_at: '2026-11-21T12:00:00Z' };
+test('published release needs complete matching Android identity, monotonic semver, and pinned Production certificate', () => {
+  const { validateReleaseManifest, APPROVED_PRODUCTION_SIGNER_CERT_SHA256, FORBIDDEN_DEBUG_CERT_SHA256 } = loadTs('src/lib/releaseManifest.ts');
+  const published = { status: 'PUBLISHED', application_id: 'com.cashflow.app', version_name: '1.1.0', version_code: 2, min_sdk: 26, target_sdk: 35,
+    download_url: 'https://downloads.invalid/CashFlow-v1.1.0.apk', apk_sha256: 'a'.repeat(64), signer_cert_sha256: APPROVED_PRODUCTION_SIGNER_CERT_SHA256, size_bytes: 123456, released_at: '2026-11-25T12:00:00Z' };
   assert.equal(validateReleaseManifest(published).status, 'PUBLISHED');
-  for (const changes of [{ download_url: 'javascript:alert(1)' }, { download_url: 'https://user:password@downloads.invalid/app.apk' }, { apk_sha256: '' }, { signer_cert_sha256: '' }, { size_bytes: 0 }, { version_code: 2 }, { released_at: null }]) assert.throws(() => validateReleaseManifest({ ...published, ...changes }));
+  assert.equal(validateReleaseManifest({ ...published, version_code: 3, version_name: '1.2.0', download_url: 'https://downloads.invalid/CashFlow-v1.2.0.apk' }).version_code, 3);
+  for (const changes of [
+    { application_id: 'com.cashflow.app.staging' },
+    { download_url: 'javascript:alert(1)' },
+    { download_url: 'https://user:password@downloads.invalid/app.apk' },
+    { apk_sha256: '' },
+    { signer_cert_sha256: '' },
+    { signer_cert_sha256: 'b'.repeat(64) },
+    { signer_cert_sha256: FORBIDDEN_DEBUG_CERT_SHA256 },
+    { size_bytes: 0 },
+    { version_code: 0 },
+    { version_name: '1.0' },
+    { released_at: null },
+  ]) assert.throws(() => validateReleaseManifest({ ...published, ...changes }));
 });
 test('public config validates contact/keyring and uses stable canonical URLs', () => {
   const f = fixture(); const config = loadTs('src/lib/config.ts', { NEXT_PUBLIC_CATALOG_SIGNING_PUBLIC_KEYS: `local-test=${f.publicKey}`, NEXT_PUBLIC_WHATSAPP_URL: 'https://wa.me/201000000001', CF_PAGES_URL: 'https://temporary.cashflow-website-1ur.pages.dev' });
@@ -90,8 +103,8 @@ test('download section hides technical fingerprints from public UI while preserv
   const verified = validateReleaseManifest(manifest);
   assert.equal(verified.status, 'PUBLISHED');
   assert.equal(verified.application_id, 'com.cashflow.app');
-  assert.equal(verified.version_code, 1);
-  assert.equal(verified.version_name, '1.0.0');
+  assert.equal(verified.version_code, 3);
+  assert.equal(verified.version_name, '1.2.0');
   assert.match(verified.apk_sha256, /^[a-fA-F0-9]{64}$/);
   assert.match(verified.signer_cert_sha256, /^[a-fA-F0-9]{64}$/);
 
@@ -108,17 +121,35 @@ test('download section hides technical fingerprints from public UI while preserv
     const sectionEnd = html.indexOf('</section>', downloadStart);
     const downloadHtml = html.slice(downloadStart, sectionEnd);
 
+    const expectedDateAr = new Intl.DateTimeFormat('ar-EG-u-nu-latn', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      timeZone: 'UTC',
+    }).format(new Date(Date.parse(manifest.released_at)));
+
     assert.ok(downloadHtml.includes(`href="${manifest.download_url}"`));
     assert.ok(downloadHtml.includes('ابدأ نظّم حسابات محلك مع CashFlow'));
     assert.ok(downloadHtml.includes('تحميل تطبيق CashFlow'));
     assert.ok(downloadHtml.includes(`v${manifest.version_name}`));
     assert.ok(downloadHtml.includes(`${(manifest.size_bytes / 1048576).toFixed(1)} MB`));
     assert.ok(downloadHtml.includes('Android 8.0 فأحدث'));
-    assert.ok(downloadHtml.includes('23 نوفمبر 2026'));
+    assert.ok(downloadHtml.includes(expectedDateAr));
+    assert.ok(downloadHtml.includes('طريقة التحديث للعملاء الحاليين'));
 
     assert.ok(!downloadHtml.includes(manifest.apk_sha256));
     assert.ok(!downloadHtml.includes(manifest.signer_cert_sha256));
     assert.ok(!downloadHtml.includes(manifest.application_id));
     assert.ok(!downloadHtml.includes('SHA-256'));
   }
+});
+
+test('CDN headers enforce no-store on release-manifest.json and APK MIME/immutable caching', async () => {
+  const { readFileSync } = await import('node:fs');
+  const { resolve } = await import('node:path');
+  const headers = readFileSync(resolve(import.meta.dirname, '../public/_headers'), 'utf8');
+  assert.ok(headers.includes('/release-manifest.json'));
+  assert.ok(headers.includes('Cache-Control: no-store, max-age=0, must-revalidate'));
+  assert.ok(headers.includes('/downloads/*.apk'));
+  assert.ok(headers.includes('Content-Type: application/vnd.android.package-archive'));
 });

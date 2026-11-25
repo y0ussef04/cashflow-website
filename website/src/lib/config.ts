@@ -22,6 +22,7 @@ export const siteConfig = {
   apk: {
     downloadUrl: isApkAvailable ? release.download_url : null,
     version: release.version_name,
+    versionCode: release.version_code,
     fileSize: isApkAvailable ? `${(release.size_bytes / 1048576).toFixed(1)} MB` : null,
     updatedAt: isApkAvailable ? release.released_at : null,
     sha256: isApkAvailable ? release.apk_sha256 : null,
@@ -29,6 +30,10 @@ export const siteConfig = {
     minAndroidVersion: "Android 8.0 (API 26)+",
     targetSdk: release.target_sdk,
     applicationId: release.application_id,
+    minSupportedVersionName: release.min_supported_version_name ?? "1.0.0",
+    releaseNotesAr: release.release_notes_ar ?? "",
+    releaseNotesEn: release.release_notes_en ?? "",
+    mandatoryUpdate: Boolean(release.mandatory_update),
   },
   legalEntity: cleanEnv(process.env.NEXT_PUBLIC_LEGAL_ENTITY) ?? "ENG.Youssef Refaat",
   catalog: {
