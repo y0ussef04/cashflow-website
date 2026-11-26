@@ -3,16 +3,20 @@ import assert from 'node:assert/strict';
 import { fixture, loadTs, verifier } from './fixtures.mjs';
 
 test('actual Gateway golden catalog verifies with exact minor units', async () => {
-  const vectors = loadTs('src/lib/config.ts', {}, { '../../public/release-manifest.json': {
-    status: 'PENDING_RELEASE', application_id: 'com.cashflow.app', version_name: '1.0.0', version_code: 1, min_sdk: 26, target_sdk: 35,
-  } });
+  const vectors = loadTs('src/lib/config.ts', {}, {
+    '../../public/release-manifest.json': {
+      status: 'PENDING_RELEASE', application_id: 'com.cashflow.app', version_name: '1.0.0', version_code: 1, min_sdk: 26, target_sdk: 35,
+    }
+  });
   assert.equal(vectors.isApkAvailable, false);
   const { readFileSync, existsSync } = await import('node:fs');
   const source = new URL('../../supabase/tests/catalog-golden-vectors.json', import.meta.url);
   const golden = JSON.parse(readFileSync(existsSync(source) ? source : new URL('./catalog-golden-vectors.json', import.meta.url), 'utf8'));
   const payload = JSON.parse(Buffer.from(golden.catalog_v1.payload_b64u, 'base64url'));
-  const result = await verifier.verifySignedCatalogEnvelope(golden.catalog_v1, { expectedEnvironment: 'PRODUCTION', expectedProjectRef: payload.project_ref,
-    trustedPublicKeys: { [golden.key_id]: golden.public_key_spki_b64 }, nowMs: payload.issued_at_ms + 1000 });
+  const result = await verifier.verifySignedCatalogEnvelope(golden.catalog_v1, {
+    expectedEnvironment: 'PRODUCTION', expectedProjectRef: payload.project_ref,
+    trustedPublicKeys: { [golden.key_id]: golden.public_key_spki_b64 }, nowMs: payload.issued_at_ms + 1000
+  });
   assert.equal(result.ok, true);
   assert.equal(result.catalog.plans[0].price_minor, '19950');
 });
@@ -34,7 +38,7 @@ test('expiry boundary, future validity, rollback and conflicting sequence fail c
 test('wrong environment, unknown keys, capabilities and malformed signed price are rejected', async () => {
   const f = fixture();
   for (const change of [{ environment: 'STAGING' }, { key_id: 'unknown' }, { minimum_client_capabilities: ['unknown_v2'] },
-    { plans: [{ ...f.payload.plans[0], price_minor: '199.50' }] }, { sequence: '9007199254740992' }]) {
+  { plans: [{ ...f.payload.plans[0], price_minor: '199.50' }] }, { sequence: '9007199254740992' }]) {
     assert.equal((await verifier.verifySignedCatalogEnvelope(f.envelope({ ...f.payload, ...change }), f.options)).ok, false);
   }
 });
@@ -42,7 +46,7 @@ test('noncanonical payload, padded base64 and negative DER integers are rejected
   const f = fixture(); const envelope = f.envelope();
   assert.equal((await verifier.verifySignedCatalogEnvelope({ ...envelope, payload_b64u: envelope.payload_b64u + '=' }, f.options)).ok, false);
   assert.equal((await verifier.verifySignedCatalogEnvelope({ ...envelope, payload_b64u: Buffer.from(JSON.stringify(f.payload)).toString('base64url') }, f.options)).ok, false);
-  assert.throws(() => verifier.derToRawP1363(Uint8Array.from([48,6,2,1,128,2,1,1])));
+  assert.throws(() => verifier.derToRawP1363(Uint8Array.from([48, 6, 2, 1, 128, 2, 1, 1])));
 });
 test('published manifest enables download and obsolete APK environment variables are ignored', () => {
   const config = loadTs('src/lib/config.ts', { NEXT_PUBLIC_APK_DOWNLOAD_URL: 'https://downloads.invalid/demo.apk', NEXT_PUBLIC_SITE_URL: 'https://local-fixture.pages.dev' });
@@ -67,8 +71,10 @@ test('a base64 alias of the same valid signature bytes is rejected', async () =>
 });
 test('published release needs complete matching Android identity, monotonic semver, and pinned Production certificate', () => {
   const { validateReleaseManifest, APPROVED_PRODUCTION_SIGNER_CERT_SHA256, FORBIDDEN_DEBUG_CERT_SHA256 } = loadTs('src/lib/releaseManifest.ts');
-  const published = { status: 'PUBLISHED', application_id: 'com.cashflow.app', version_name: '1.1.0', version_code: 2, min_sdk: 26, target_sdk: 35,
-    download_url: 'https://downloads.invalid/CashFlow-v1.1.0.apk', apk_sha256: 'a'.repeat(64), signer_cert_sha256: APPROVED_PRODUCTION_SIGNER_CERT_SHA256, size_bytes: 123456, released_at: '2026-11-25T12:00:00Z' };
+  const published = {
+    status: 'PUBLISHED', application_id: 'com.cashflow.app', version_name: '1.1.0', version_code: 2, min_sdk: 26, target_sdk: 35,
+    download_url: 'https://downloads.invalid/CashFlow-v1.1.0.apk', apk_sha256: 'a'.repeat(64), signer_cert_sha256: APPROVED_PRODUCTION_SIGNER_CERT_SHA256, size_bytes: 123456, released_at: '2026-11-25T12:00:00Z'
+  };
   assert.equal(validateReleaseManifest(published).status, 'PUBLISHED');
   assert.equal(validateReleaseManifest({ ...published, version_code: 3, version_name: '1.2.0', download_url: 'https://downloads.invalid/CashFlow-v1.2.0.apk' }).version_code, 3);
   for (const changes of [
@@ -103,8 +109,8 @@ test('download section hides technical fingerprints from public UI while preserv
   const verified = validateReleaseManifest(manifest);
   assert.equal(verified.status, 'PUBLISHED');
   assert.equal(verified.application_id, 'com.cashflow.app');
-  assert.equal(verified.version_code, 3);
-  assert.equal(verified.version_name, '1.2.0');
+  assert.equal(verified.version_code, 4);
+  assert.equal(verified.version_name, '1.3.0');
   assert.match(verified.apk_sha256, /^[a-fA-F0-9]{64}$/);
   assert.match(verified.signer_cert_sha256, /^[a-fA-F0-9]{64}$/);
 

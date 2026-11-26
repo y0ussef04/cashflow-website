@@ -1,18 +1,18 @@
 {
   "status": "PUBLISHED",
   "application_id": "com.cashflow.app",
-  "version_code": 3,
-  "version_name": "1.2.0",
+  "version_code": 4,
+  "version_name": "1.3.0",
   "min_supported_version_code": 1,
   "min_supported_version_name": "1.0.0",
   "min_sdk": 26,
   "target_sdk": 35,
-  "download_url": "https://cashflow-website-1ur.pages.dev/downloads/CashFlow-v1.2.0.apk",
-  "apk_sha256": "7699994883db4f1ca24f2127acaa351983a97906dc98192ee80c8de9e61c018b",
+  "download_url": "https://cashflow-website-1ur.pages.dev/downloads/CashFlow-v1.3.0.apk",
+  "apk_sha256": "9fa8392cb1b69d7aec9fb04868dfe34035b569513a2e7f9f82f0afa1eace2f64",
   "signer_cert_sha256": "2689db5025f902bf7399d5cf0b209dea67470fe581e24c5b6e15e2ac1153b90f",
-  "size_bytes": 3852583,
-  "released_at": "2026-11-25T01:00:16Z",
+  "size_bytes": 3852563,
+  "released_at": "2026-11-26T10:12:03Z",
   "mandatory_update": false,
-  "release_notes_ar": "تحسين نظام التحديث داخل التطبيق مع التحقق من الشهادة والتوقيع الرقمي، ودعم استكمال التحديث دون حذف البيانات أو المحافظ.",
-  "release_notes_en": "Enhanced in-app update verification with production certificate enforcement, release notes display, and seamless zero-data-loss in-place upgrades."
+  "release_notes_ar": "تحسين شاشة الاشتراك والتفعيل وإزالة الأزرار المكررة وتسريع الاستجابة، وتوضيح مسميات العمليات (نقدي للخزنة وكاش للمحفظة).",
+  "release_notes_en": "Improved subscription screen responsiveness by removing duplicate payment buttons, and clarified Arabic transaction terminology (نقدي for cashbox, كاش for wallet)."
 }
