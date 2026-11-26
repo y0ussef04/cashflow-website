@@ -41,15 +41,15 @@ export function PhoneFrame({
 
   return (
     <div
-      className={`relative mx-auto w-full max-w-[292px] rounded-[32px] border-[6px] border-[#0B2144] bg-[#0B2144] p-1.5 shadow-sm ${className}`}
+      className={`relative mx-auto w-full max-w-[216px] sm:max-w-[292px] rounded-[28px] sm:rounded-[32px] border-[5px] sm:border-[6px] border-[#0B2144] bg-[#0B2144] p-1 sm:p-1.5 shadow-sm ${className}`}
     >
       {/* Top speaker/camera bar */}
       <div
-        className="mx-auto mb-1.5 h-1.5 w-14 rounded-full bg-[#1E3A6D]"
+        className="mx-auto mb-1 sm:mb-1.5 h-1 sm:h-1.5 w-12 sm:w-14 rounded-full bg-[#1E3A6D]"
         aria-hidden="true"
       />
 
-      <div className="relative aspect-[9/16] w-full overflow-hidden rounded-[22px] bg-cf-bg border border-[#1E3A6D]/40">
+      <div className="relative aspect-[9/16] w-full overflow-hidden rounded-[20px] sm:rounded-[22px] bg-cf-bg border border-[#1E3A6D]/40">
         {!loaded && !failed && (
           <div
             className="absolute inset-0 bg-cf-surface-container"

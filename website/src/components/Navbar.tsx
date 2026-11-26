@@ -45,15 +45,15 @@ export function Navbar() {
         {/* Brand */}
         <a
           href={anchor("#top")}
-          className="flex items-center gap-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cf-primary rounded-lg"
+          className="flex min-w-0 items-center gap-2.5 sm:gap-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cf-primary rounded-lg"
           aria-label={t.brand.logoAlt}
         >
-          <CashFlowLogoMark size={38} variant="light" />
-          <div className="flex flex-col">
+          <CashFlowLogoMark size={36} variant="light" className="shrink-0 sm:h-[38px] sm:w-[38px]" />
+          <div className="flex min-w-0 flex-col">
             <span className="font-tabular text-base font-bold leading-tight text-cf-on-surface">
               {t.brand.name}
             </span>
-            <span className="text-[11px] font-medium leading-tight text-cf-on-surface-variant">
+            <span className="hidden sm:block text-[11px] font-medium leading-tight text-cf-on-surface-variant">
               {t.brand.subtitle}
             </span>
           </div>

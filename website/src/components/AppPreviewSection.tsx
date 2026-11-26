@@ -14,17 +14,17 @@ export function AppPreviewSection() {
     t.preview.screens.find((s) => s.id === selectedId) ?? t.preview.screens[0];
 
   return (
-    <section id="preview" className="py-16 sm:py-24">
+    <section id="preview" className="py-10 sm:py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
             <span className="inline-block rounded-lg bg-cf-primary-container px-3 py-1 text-xs font-semibold text-cf-primary">
               {t.preview.eyebrow}
             </span>
-            <h2 className="mt-3 text-2xl font-bold tracking-tight text-cf-on-surface sm:text-3xl">
+            <h2 className="mt-3 text-xl font-bold tracking-tight text-cf-on-surface sm:text-3xl">
               {t.preview.title}
             </h2>
-            <p className="mt-3 text-sm leading-relaxed text-cf-on-surface-variant sm:text-base">
+            <p className="mt-2.5 sm:mt-3 text-sm leading-relaxed text-cf-on-surface-variant sm:text-base">
               {t.preview.subtitle}
             </p>
           </div>
@@ -33,7 +33,7 @@ export function AppPreviewSection() {
           <div
             role="tablist"
             aria-label={t.preview.title}
-            className="flex flex-wrap gap-2"
+            className="no-scrollbar -mx-4 flex flex-nowrap gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0"
           >
             {t.preview.screens.map((screen) => {
               const active = screen.id === activeScreen.id;
@@ -44,7 +44,7 @@ export function AppPreviewSection() {
                   type="button"
                   aria-selected={active}
                   onClick={() => setSelectedId(screen.id)}
-                  className={`cf-transition rounded-xl px-3.5 py-2 text-xs font-semibold cursor-pointer focus-visible:outline-2 focus-visible:outline-cf-primary ${
+                  className={`cf-transition shrink-0 whitespace-nowrap rounded-xl px-3.5 py-2 text-xs font-semibold cursor-pointer focus-visible:outline-2 focus-visible:outline-cf-primary ${
                     active
                       ? "bg-cf-primary text-white"
                       : "border border-cf-border bg-cf-surface text-cf-on-surface-variant hover:bg-cf-surface-low hover:text-cf-on-surface"
@@ -58,27 +58,27 @@ export function AppPreviewSection() {
         </div>
 
         {/* Featured Screen + Strip */}
-        <div className="mt-10 cf-card p-6 sm:p-8 lg:p-10">
-          <div className="grid items-center gap-8 lg:grid-cols-12">
+        <div className="mt-6 sm:mt-10 cf-card p-4 sm:p-8 lg:p-10">
+          <div className="grid items-center gap-5 sm:gap-8 lg:grid-cols-12">
             <div className="lg:col-span-5">
               <PhoneFrame src={activeScreen.src} alt={activeScreen.title} />
             </div>
 
-            <div className="lg:col-span-7 flex flex-col gap-6">
-              <div>
+            <div className="lg:col-span-7 flex flex-col gap-4 sm:gap-6">
+              <div className="text-center sm:text-start">
                 <span className="inline-block rounded-md bg-cf-primary-container px-2.5 py-1 text-xs font-semibold text-cf-primary">
                   {activeScreen.tag}
                 </span>
-                <h3 className="mt-3 text-xl font-bold text-cf-on-surface sm:text-2xl">
+                <h3 className="mt-2.5 sm:mt-3 text-lg font-bold text-cf-on-surface sm:text-2xl">
                   {activeScreen.title}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-cf-on-surface-variant sm:text-base">
+                <p className="mt-1.5 sm:mt-2 text-xs sm:text-base leading-relaxed text-cf-on-surface-variant">
                   {activeScreen.caption}
                 </p>
               </div>
 
-              {/* Thumbnail Selector Strip */}
-              <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
+              {/* Thumbnail Selector Strip (desktop/tablet; mobile uses top pill bar) */}
+              <div className="hidden sm:grid sm:grid-cols-5 gap-3">
                 {t.preview.screens.map((screen) => {
                   const active = screen.id === activeScreen.id;
                   return (
@@ -109,7 +109,7 @@ export function AppPreviewSection() {
                 })}
               </div>
 
-              <p className="text-xs text-cf-text-muted">{t.preview.note}</p>
+              <p className="text-center sm:text-start text-xs text-cf-text-muted">{t.preview.note}</p>
             </div>
           </div>
         </div>

@@ -12,19 +12,19 @@ export function AboutDeveloperSection() {
   return (
     <section
       id="developer"
-      className="border-t border-cf-border bg-cf-bg py-14 sm:py-16"
+      className="border-t border-cf-border bg-cf-bg py-10 sm:py-16"
     >
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-        <div className="cf-card p-6 sm:p-8">
-          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-            <div className="flex min-w-0 items-start gap-4">
-              <div className="h-28 w-20 shrink-0 overflow-hidden rounded-2xl border border-cf-border bg-cf-primary-container sm:h-32 sm:w-24">
+        <div className="cf-card p-4 sm:p-8">
+          <div className="flex flex-col gap-4 sm:gap-6 md:flex-row md:items-center md:justify-between">
+            <div className="flex min-w-0 items-start gap-3.5 sm:gap-4">
+              <div className="h-20 w-16 shrink-0 overflow-hidden rounded-xl sm:rounded-2xl border border-cf-border bg-cf-primary-container sm:h-32 sm:w-24">
                 <Image
                   src="/developer/youssef-refaat.jpg"
                   alt={t.developer.name}
                   width={300}
                   height={400}
-                  sizes="(min-width: 640px) 96px, 80px"
+                  sizes="(min-width: 640px) 96px, 64px"
                   className="h-full w-full object-cover"
                 />
               </div>
@@ -34,15 +34,15 @@ export function AboutDeveloperSection() {
                   {t.developer.eyebrow}
                 </span>
 
-                <h2 className="mt-2 text-lg font-bold text-cf-on-surface sm:text-xl">
+                <h2 className="mt-1.5 sm:mt-2 text-base font-bold text-cf-on-surface sm:text-xl">
                   {t.developer.name}
                 </h2>
 
-                <p className="mt-0.5 text-sm font-semibold text-cf-primary">
+                <p className="mt-0.5 text-xs sm:text-sm font-semibold text-cf-primary">
                   {t.developer.role}
                 </p>
 
-                <p className="mt-2 flex items-start gap-2 text-sm text-cf-on-surface-variant">
+                <p className="mt-1.5 sm:mt-2 flex items-start gap-1.5 sm:gap-2 text-xs sm:text-sm text-cf-on-surface-variant">
                   <GraduationCap
                     className="h-4 w-4 shrink-0 text-cf-text-muted"
                     aria-hidden="true"
@@ -57,7 +57,7 @@ export function AboutDeveloperSection() {
                 href={siteConfig.contact.linkedinUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="cf-transition inline-flex min-h-[44px] items-center gap-2 rounded-xl border border-cf-border bg-cf-surface px-4 py-2.5 text-sm font-semibold text-cf-on-surface hover:border-cf-primary/50 hover:bg-cf-primary-container/50 hover:text-cf-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cf-primary"
+                className="cf-transition inline-flex min-h-[44px] w-full justify-center md:w-auto items-center gap-2 rounded-xl border border-cf-border bg-cf-surface px-4 py-2.5 text-sm font-semibold text-cf-on-surface hover:border-cf-primary/50 hover:bg-cf-primary-container/50 hover:text-cf-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cf-primary"
               >
                 <Linkedin className="h-4 w-4 text-cf-primary" aria-hidden="true" />
                 <span>{t.developer.linkedinLabel}</span>

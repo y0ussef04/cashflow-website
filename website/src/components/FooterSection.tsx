@@ -54,8 +54,8 @@ export function FooterSection() {
   return (
     <>
       <footer id="support" className="border-t border-cf-border bg-cf-surface">
-        <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
-          <div className="grid gap-10 md:grid-cols-12">
+        <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+          <div className="grid gap-7 md:gap-10 md:grid-cols-12">
             {/* Brand Column */}
             <div className="md:col-span-5">
               <div className="flex items-center gap-3">
@@ -69,7 +69,7 @@ export function FooterSection() {
                   </div>
                 </div>
               </div>
-              <p className="mt-4 max-w-sm text-sm leading-relaxed text-cf-on-surface-variant">
+              <p className="mt-3 sm:mt-4 max-w-sm text-xs sm:text-sm leading-relaxed text-cf-on-surface-variant">
                 {t.footer.description}
               </p>
             </div>
@@ -79,7 +79,7 @@ export function FooterSection() {
               <h3 className="text-xs font-bold uppercase tracking-wider text-cf-text-muted">
                 {t.footer.navigationTitle}
               </h3>
-              <ul className="mt-4 space-y-2.5">
+              <ul className="mt-3 sm:mt-4 grid grid-cols-2 gap-x-4 gap-y-2 md:block md:space-y-2.5">
                 {navLinks.map((link) => (
                   <li key={link.href}>
                     <a
